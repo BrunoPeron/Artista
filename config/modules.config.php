@@ -47,6 +47,7 @@ return array(
     'DoctrineDataFixtureModule',
     'ZF\\Apigility\\Documentation\\Swagger',
     'Projeto',
+    'Servicos',
     'Transacao',
     'Pessoa',
     'Transacao',

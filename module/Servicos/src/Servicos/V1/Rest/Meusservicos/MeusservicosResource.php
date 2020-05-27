@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Servicos\V1\Rest\Meusservicos;
 
 use ZF\ApiProblem\ApiProblem;
