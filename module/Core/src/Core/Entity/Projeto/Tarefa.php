@@ -40,7 +40,7 @@ class Tarefa
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data", type="datetime", nullable=false)
+     * @ORM\Column(name="data", type="datetime",                          nullable=false)
      */
     public $data;
 
