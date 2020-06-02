@@ -5,4 +5,5 @@ return array (
   'Sistema\\Module' => '/home/bruno/PhpstormProjects/skeleton/module/Sistema/Module.php',
   'Usuarios\\Module' => '/home/bruno/PhpstormProjects/skeleton/module/Usuarios/Module.php',
   'Projeto\\Module' => '/home/bruno/PhpstormProjects/skeleton/module/Projeto/Module.php',
+  'Pessoa\\Module' => '/home/bruno/PhpstormProjects/skeleton/module/Pessoa/Module.php',
 );

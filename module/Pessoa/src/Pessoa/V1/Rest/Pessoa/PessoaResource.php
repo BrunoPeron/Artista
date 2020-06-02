@@ -3,9 +3,19 @@ namespace Pessoa\V1\Rest\Pessoa;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
+use Core\Service\Pessoa\PessoaService as Pessoa;
 
 class PessoaResource extends AbstractResourceListener
 {
+    protected $em;
+    protected $sm;
+    protected $db;
+    //protected $service;
+    public function __construct($services){
+        $this->sm = $services;
+        $this->em = $services->get('Doctrine\ORM\EntityManager');
+        //$this->db = $service->get('oauth2');
+    }
     /**
      * Create a resource
      *
@@ -14,7 +24,11 @@ class PessoaResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        return new ApiProblem(405, 'The POST method has not been defined');
+        $data = $this->getInputFilter()->getValues();
+        $usr = $this->getEvent()->getIdentity()->getAuthenticationIdentity();
+        $pessoa = new Pessoa($this->em);
+        $retorno = $pessoa->create($data, $usr);
+        return new ApiProblem($retorno['codigo'], $retorno['mensagem']);
     }
 
     /**
