@@ -1,8 +1,9 @@
-<?php
+<?php 
 namespace Servicos\V1\Rest\Meusservicos;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
+use Core\Service\Servicos\MeusservicosService as meuservicos;
 
 class MeusservicosResource extends AbstractResourceListener
 {
@@ -14,7 +15,15 @@ class MeusservicosResource extends AbstractResourceListener
      */
     public function create($data)
     {
+        $data = $this->getInputFilter()->getValues();
+        $usr = $this->getEvent()->getIdentity()->getAuthenticationIdentity();
+        $meusservicos = new meusservicos($this->em);
+        $result = $meusservicos->create($date,$usr);
         return new ApiProblem(405, 'The POST method has not been defined');
+        /*$data = $this->getInputFilter()->getValues();
+        
+        $retorno = $tarefa->create($data, $usr);
+        return new ApiProblem($retorno['codigo'], $retorno['mensagem']);*/
     }
 
     /**
