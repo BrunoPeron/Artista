@@ -110,6 +110,12 @@ return array(
                 'name' => 'cpf',
                 'error_message' => 'insira cpf',
             ),
+            3 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'cod_pessoa',
+            ),
         ),
     ),
     'zf-mvc-auth' => array(
