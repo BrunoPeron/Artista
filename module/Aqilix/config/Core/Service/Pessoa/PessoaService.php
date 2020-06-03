@@ -19,8 +19,7 @@ class PessoaService
         }
         $pessoa->nome_completo = $data['nome_completo'];
         $pessoa->cpf = $data['cpf'];
-        $data_nasc = \DateTime::createFromFormat("d/m/Y", $data['data_nasc']);
-        $pessoa->data_nasc = $data_nasc;
+        $pessoa->data_nasc = $data['data_nasc'];
         try{
             $this->em->persist($pessoa);
             $this->em->flush();

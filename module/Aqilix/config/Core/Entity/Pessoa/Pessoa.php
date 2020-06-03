@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Pessoa
  *
- * @ORM\Table(name="pessoa")
+ * @ORM\Table(name="pessoa", indexes={@ORM\Index(name="IDX_31B4CBA5D37D0F1", columns={"nome_completo"}), @ORM\Index(name="IDX_31B4CBACF964237", columns={"data_nasc"}), @ORM\Index(name="IDX_31B4CBABB4D0D62", columns={"cpf"})})
  * @ORM\Entity
  */
 class Pessoa
@@ -32,18 +32,9 @@ class Pessoa
      */
     public $cpf;
     /**
-     * @var integer
+     * @var int
      *
-     * @ORM\Column(name="cod_pessoa", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="pessoa_codpessoa_seq", allocationSize=1, initialValue=1)
+     * @ORM\Column(name="cod_pessoa", type="int", nullable=false)
      */
     public $cod_pessoa;
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="idade", type="integer", nullable=false)
-     */
-    public $idade;
 }

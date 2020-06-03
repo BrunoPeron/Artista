@@ -116,6 +116,12 @@ return array(
                 'filters' => array(),
                 'name' => 'cod_pessoa',
             ),
+            4 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'idade',
+            ),
         ),
     ),
     'zf-mvc-auth' => array(
