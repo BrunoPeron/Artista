@@ -19,6 +19,7 @@ class PessoaService
         }
         $pessoa->nome_completo = $data['nome_completo'];
         $pessoa->cpf = $data['cpf'];
+        $pessoa->idade = $data['idade'];
         $data_nasc = \DateTime::createFromFormat("d/m/Y", $data['data_nasc']);
         $pessoa->data_nasc = $data_nasc;
         try{
@@ -30,6 +31,20 @@ class PessoaService
              var_dump($e->getMessage());
             return ['codigo' => 500, 'mensagem' => 'Não foi possível criar uma pessoa!'];
         }
+    }
+
+    public function fetch($id = null)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('p.nome')
+            ->from('Core\Entity\Pessoa\Pessoa', 'p');
+        if($id){
+            $qb->where("p.cod_pessoa = ?1");
+            // $qb->setParamaters(array(1 => $id));
+            $qb->setParameters([1 => $id]);
+        }
+        $result = $qb->getQuery()->getResult();
+        return $result;
     }
 
 }
