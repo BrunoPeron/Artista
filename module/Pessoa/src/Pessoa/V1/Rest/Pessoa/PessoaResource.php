@@ -73,7 +73,8 @@ class PessoaResource extends AbstractResourceListener
      */
     public function fetchAll($params = [])
     {
-        return new ApiProblem(405, 'The GET method has not been defined for collections');
+        $pessoa = new Pessoa($this->em);
+        return $pessoa->fetch();
     }
 
     /**
@@ -119,6 +120,9 @@ class PessoaResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
-        return new ApiProblem(405, 'The PUT method has not been defined for individual resources');
+        $usr = $this->getEvent()->getIdentity()->getAuthenticationIdentity();
+        $data = $this->getInputFilter()->getValues();
+        $pessoa = new Pessoa($this->em);
+        $pessoa->update($id, $data, $usr);
     }
 }

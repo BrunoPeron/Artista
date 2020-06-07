@@ -31,4 +31,19 @@ class PessoaService
         }
     }
 
+    public function fetch($id = null)
+    {
+        var_dump("pasta config");
+        $qb = $this->em->createQueryBuilder()
+            ->select('p.nome')
+            ->from('Core\Entity\Pessoa\Pessoa', 'p');
+        if($id){
+            $qb->where("p.cod_pessoa = ?1");
+            // $qb->setParamaters(array(1 => $id));
+            $qb->setParameters([1 => $id]);
+        }
+        $result = $qb->getQuery()->getResult();
+        return $result;
+    }
+
 }

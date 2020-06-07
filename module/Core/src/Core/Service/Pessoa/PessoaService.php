@@ -36,7 +36,7 @@ class PessoaService
     public function fetch($id = null)
     {
         $qb = $this->em->createQueryBuilder()
-            ->select('p.nome')
+            ->select('p.nome_completo')
             ->from('Core\Entity\Pessoa\Pessoa', 'p');
         if($id){
             $qb->where("p.cod_pessoa = ?1");
@@ -45,6 +45,21 @@ class PessoaService
         }
         $result = $qb->getQuery()->getResult();
         return $result;
+    }
+
+    public function update($id, $data, $usr){
+        echo "id\n";
+        var_dump($id);
+        echo "data\n";
+        var_dump($data);
+        echo "usr\n";
+        var_dump($usr);
+        exit;
+        // \Doctrine\Common\Util\Debug::dump($projeto);
+        if($id){
+            return $this->create($data, $usr, $tarefa);
+        }
+        return 'Nenhuma tarefa encontrada!';
     }
 
 }
