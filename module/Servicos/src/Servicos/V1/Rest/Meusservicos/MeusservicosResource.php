@@ -3,27 +3,46 @@ namespace Servicos\V1\Rest\Meusservicos;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
-use Core\Service\Servicos\MeusservicosService as meuservicos;
+use Core\Service\Servicos\MeusservicosService as meusservicos;
 
 class MeusservicosResource extends AbstractResourceListener
 {
+    protected $em;
+	protected $sm;
+	protected $db;
     /**
      * Create a resource
      *
      * @param  mixed $data
      * @return ApiProblem|mixed
      */
+
+    public function __construct($services){
+		$this->sm = $services;
+		$this->em = $services->get('Doctrine\ORM\EntityManager');
+		//$this->db = $service->get('oauth2');
+	}
+
     public function create($data)
     {
+//        echo 18;
+        $data = $this->getInputFilter()->getValues();
+//        echo 20;
+        $usr = $this->getEvent()->getIdentity()->getAuthenticationIdentity();
+//        echo 22;
+//        var_dump($this->em);
+        $meusservicos = new meusservicos($this->em);
+        
+        $retorno = $meusservicos->create($data,$usr);
+        //echo 37;
+        return new ApiProblem(405, 'The POST method has not been defined');
+        /*$retorno = $tarefa->create($data, $usr);
+        return new ApiProblem($retorno['codigo'], $retorno['mensagem']);
+        
         $data = $this->getInputFilter()->getValues();
         $usr = $this->getEvent()->getIdentity()->getAuthenticationIdentity();
-        $meusservicos = new meusservicos($this->em);
-        $result = $meusservicos->create($date,$usr);
-        return new ApiProblem(405, 'The POST method has not been defined');
-        /*$data = $this->getInputFilter()->getValues();
-        
-        $retorno = $tarefa->create($data, $usr);
-        return new ApiProblem($retorno['codigo'], $retorno['mensagem']);*/
+        $projeto = new Projeto($this->em);
+        $projeto->create($data, $usr);*/
     }
 
     /**

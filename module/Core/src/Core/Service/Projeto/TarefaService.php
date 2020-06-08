@@ -1,5 +1,5 @@
 <?php 
-
+ 
 namespace Core\Service\Projeto;
 
 use Core\Entity\Projeto\Tarefa;

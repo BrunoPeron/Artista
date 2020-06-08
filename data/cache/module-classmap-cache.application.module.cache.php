@@ -5,4 +5,5 @@ return array (
   'Sistema\\Module' => '/home/iago/Documentos/Trabalho/Artista/module/Sistema/Module.php',
   'Usuarios\\Module' => '/home/iago/Documentos/Trabalho/Artista/module/Usuarios/Module.php',
   'Projeto\\Module' => '/home/iago/Documentos/Trabalho/Artista/module/Projeto/Module.php',
+  'Servicos\\Module' => '/home/iago/Documentos/Trabalho/Artista/module/Servicos/Module.php',
 );

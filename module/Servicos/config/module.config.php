@@ -50,7 +50,7 @@ return array(
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
-            'Servicos\\V1\\Rest\\Meusservicos\\Controller' => 'HalJson',
+            'Servicos\\V1\\Rest\\Meusservicos\\Controller' => 'Json',
         ),
         'accept_whitelist' => array(
             'Servicos\\V1\\Rest\\Meusservicos\\Controller' => array(
@@ -99,6 +99,65 @@ return array(
                     'PATCH' => false,
                     'DELETE' => false,
                 ),
+            ),
+        ),
+    ),
+    'zf-content-validation' => array(
+        'Servicos\\V1\\Rest\\Meusservicos\\Controller' => array(
+            'input_filter' => 'Servicos\\V1\\Rest\\Meusservicos\\Validator',
+        ),
+    ),
+    'input_filter_specs' => array(
+        'Servicos\\V1\\Rest\\Meusservicos\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'nome',
+                'description' => 'nome do projeto',
+                'error_message' => 'Faltou o nome do projeto',
+            ),
+            1 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'cliente',
+                'error_message' => 'Faltou o cliente',
+            ),
+            2 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'artista',
+                'error_message' => 'Faltou o artista',
+            ),
+            3 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'status',
+                'error_message' => 'Faltou o estado do projeto',
+            ),
+            4 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'descricao',
+                'error_message' => 'Faltou descrição',
+            ),
+            5 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'data_inicial',
+                'error_message' => 'Falta data inicial',
+            ),
+            6 => array(
+                'required' => false,
+                'validators' => array(),
+                'filters' => array(),
+                'name' => 'data_fim',
+                'error_message' => 'Faltou data de conclusão',
             ),
         ),
     ),

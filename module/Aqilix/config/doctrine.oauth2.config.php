@@ -65,6 +65,13 @@ return [
                     __DIR__.'/Core/Entity/Projeto'
                 ],
             ],
+            'core_servicos' => [
+                'class' => \Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [
+                    __DIR__.'/Core/Entity/Servicos'
+                ],
+            ],
             'orm_default' => [
                 'drivers' => [
                     'Aqilix\OAuth2\Entity' => 'aqilix_oauth2_entity'
