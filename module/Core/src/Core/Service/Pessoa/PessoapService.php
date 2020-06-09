@@ -34,13 +34,7 @@ class PessoapService
         $pessoa->infadd = $data['infadd'];
         $data_nasc = \DateTime::createFromFormat("d/m/Y", $data['datanasc']);
         $pessoa->datanasc = $data_nasc;
-//        exit;
-//        $data_nasc = date_create($data['datanasc']);
-//        var_dump($data['datanasc']);
-//        $teste = date_format($data['datanasc'], 'Y/m/d H:i:s');
-//        var_dump($teste);
         try{
-//            var_dump($pessoa);exit;
             $this->em->persist($pessoa);
             $this->em->flush();
             return ['codigo' => 201, 'mensagem' => 'Pessoa criada com sucesso!'];
@@ -54,7 +48,7 @@ class PessoapService
     public function fetch($id = null)
     {
         $qb = $this->em->createQueryBuilder()
-            ->select('p.nomep')
+            ->select('p.nomep, p.sobrenome, p.cpf, p.idade, p.datanasc, p.sexo')
             ->from('Core\Entity\Pessoa\Pessoap', 'p');
         if($id){
             $qb->where("p.codpessoa = ?1");
@@ -66,18 +60,33 @@ class PessoapService
     }
 
     public function update($id, $data, $usr){
-        echo "id\n";
-        var_dump($id);
-        echo "data\n";
-        var_dump($data);
-        echo "usr\n";
-        var_dump($usr);
-        exit;
+        $pessoap = $this->em->getRepository(\Core\Entity\Pessoa\Pessoap::class)->findOneBy(['codpessoa' => $id]);
         // \Doctrine\Common\Util\Debug::dump($projeto);
         if($id){
-            return $this->create($data, $usr, $tarefa);
+            return $this->create($data, $usr, $pessoap);
         }
         return 'Nenhuma tarefa encontrada!';
     }
+
+    public function delete($id, $usr){
+        $pessoap = $this->em->getRepository(\Core\Entity\Pessoa\Pessoap::class)->findOneBy(['codpessoa' => $id]);
+        // $dono = $this->em->getRepository(\Core\Entity\Projeto\Tarefa::class)->findOneBy(['idCriador' => $usuario->id]);
+        // if($dono){
+        $sql = "delete from pessoap where codpessoa = {$pessoap->codpessoa} returning codpessoa";
+        $stmt = $this->em->getConnection()->prepare($sql);
+        try {
+            $stmt->execute();
+            $retorno = $stmt->fetchAll();
+            if(!isset($retorno[0])){
+                return ['codigo' => 404, 'mensagem' => 'Não foi possível excluir a tarefa, verique se você é o Dono!'];
+            }
+        } catch (\Exception $e){
+            return ['codigo' => 500, 'mensagem' => 'Não foi possível excluir a tarefa!'];
+        }
+        return ['codigo' => 200, 'mensagem' => 'Excluído com sucesso!'];
+        // }
+        // return ['codigo' => 403, 'mensagem' => 'Você não é o dono da tarefa, deste modo não poderá excluí-la!'];
+    }
+
 
 }

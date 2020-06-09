@@ -39,7 +39,10 @@ class PessoapResource extends AbstractResourceListener
      */
     public function delete($id)
     {
-        return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
+        $usr = $this->getEvent()->getIdentity()->getAuthenticationIdentity();
+        $pessoap = new Pessoap($this->em);
+        $retorno = $pessoap->delete($id, $usr);
+        return new ApiProblem($retorno['codigo'], $retorno['mensagem']);
     }
 
     /**
@@ -61,7 +64,8 @@ class PessoapResource extends AbstractResourceListener
      */
     public function fetch($id)
     {
-        return new ApiProblem(405, 'The GET method has not been defined for individual resources');
+        $pessoap = new Pessoap($this->em);
+        return $pessoap->fetch(ltrim($id, '='));
     }
 
     /**
@@ -72,7 +76,8 @@ class PessoapResource extends AbstractResourceListener
      */
     public function fetchAll($params = [])
     {
-        return new ApiProblem(405, 'The GET method has not been defined for collections');
+        $pessoap = new Pessoap($this->em);
+        return $pessoap->fetch();
     }
 
     /**
@@ -118,6 +123,9 @@ class PessoapResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
-        return new ApiProblem(405, 'The PUT method has not been defined for individual resources');
+        $usr = $this->getEvent()->getIdentity()->getAuthenticationIdentity();
+        $data = $this->getInputFilter()->getValues();
+        $pessoap = new Pessoap($this->em);
+        $pessoap->update($id, $data, $usr);
     }
 }
