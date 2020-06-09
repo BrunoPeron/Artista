@@ -5,6 +5,6 @@ class PessoapResourceFactory
 {
     public function __invoke($services)
     {
-        return new PessoapResource();
+        return new PessoapResource($services);
     }
 }
