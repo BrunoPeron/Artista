@@ -13,39 +13,41 @@ class MeusservicosService{
 
     public function create($data, $usr, $projeto = null){
         if(!$projeto){
-            //echo 25;
             $meusservicos = new meusservicos();
-            //echo 24;
         }
         $meusservicos->nome = $data['nome'];
-        //echo 26;     
-//    	$data_inicial = \DateTime::createFromFormat("Y-m-d", $data['data_inicial']);
-        $data_fim = \Date::createFromFormat("Y-m-d", $data['data_fim']);
-        
-        $meusservicos->dataInicio = $data['data_inicial'];
-        $meusservicos->dataFim = date("Y/m/d", $data['data_fim']);
- //       var_dump($meusservicos->dataInicio);
- //       var_dump($meusservicos->dataFim);
-        //echo 28;
+//        $data_fim = \Date::createFromFormat("Y-m-d", $data['data_fim']);
+//        $meusservicos->dataInicio = $data['data_inicial'];
+//        $meusservicos->dataFim = date("Y/m/d", $data['data_fim']);
         $meusservicos->cliente = $data['cliente'];
         $meusservicos->artista = $data['artista'];
-
-        //var_dump($cliente);
-        //echo 34;
         $meusservicos->descricao = $data['descricao'];
-        //$status = $this->em->getRepository(\Core\Entity\Projeto\Status::class)->findOneBy(['id' => $data['status']]);
-        //var_dump($status);
-        $meusservicos->idStatus = $data['status'];
+        $meusservicos->status = $data['status'];
+        $data = date('d/m/Y');
+        $meusservicos->dataInicio = \DateTime::createFromFormat("d/m/Y",$data);
     
         try{
     		$this->em->persist($meusservicos);
     		$this->em->flush();
-            return $meusservicos;
+            return ['codigo' => 201,'mensagem'=>'servico criado'];
 		} catch (\Exception $e){
 			var_dump($e->getCode());
 			var_dump($e->getMessage());
 			exit;
 		}
+    }
+
+    public function fetch($id=null){
+        $qb = $this->em->createQueryBuilder()
+            ->select('p.nome, p.dataInicio, p.dataFim, p.cliente, p.artista, p.descricao, p.status, p.id')
+            ->from('Core\Entity\Servicos\meusservicos','p');
+        if($id){
+            $qb->where("p.id = ?1");
+            // $qb->setParamaters(array(1 => $id));
+            $qb->setParameters([1 => $id]);
+        }
+        $result = $qb->getQuery()->getResult();
+        return $result;
     }
 
 }

@@ -54,13 +54,13 @@ class meusservicos
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dataInicio", type="date", nullable=false)
+     * @ORM\Column(name="datainicio", type="datetime", nullable=false)
      */
     public $dataInicio;
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dataFim", type="date", nullable=false)
+     * @ORM\Column(name="datafim", type="datetime", nullable=false)
      */
     public $dataFim;
  

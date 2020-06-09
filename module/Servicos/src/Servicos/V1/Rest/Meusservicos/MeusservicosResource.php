@@ -25,24 +25,12 @@ class MeusservicosResource extends AbstractResourceListener
 
     public function create($data)
     {
-//        echo 18;
         $data = $this->getInputFilter()->getValues();
-//        echo 20;
         $usr = $this->getEvent()->getIdentity()->getAuthenticationIdentity();
-//        echo 22;
-//        var_dump($this->em);
         $meusservicos = new meusservicos($this->em);
-        
-        $retorno = $meusservicos->create($data,$usr);
-        //echo 37;
-        return new ApiProblem(405, 'The POST method has not been defined');
-        /*$retorno = $tarefa->create($data, $usr);
+        $retorno = $meusservicos->create($data, $usr);
+
         return new ApiProblem($retorno['codigo'], $retorno['mensagem']);
-        
-        $data = $this->getInputFilter()->getValues();
-        $usr = $this->getEvent()->getIdentity()->getAuthenticationIdentity();
-        $projeto = new Projeto($this->em);
-        $projeto->create($data, $usr);*/
     }
 
     /**
@@ -86,7 +74,8 @@ class MeusservicosResource extends AbstractResourceListener
      */
     public function fetchAll($params = [])
     {
-        return new ApiProblem(405, 'The GET method has not been defined for collections');
+        $meusservicos = new meusservicos($this->em);
+        return $meusservicos->fetch();
     }
 
     /**
