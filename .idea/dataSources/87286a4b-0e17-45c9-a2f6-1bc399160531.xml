@@ -1414,7 +1414,7 @@ true posixrules
       <ObjectId>13465</ObjectId>
       <Comment>default administrative connection database</Comment>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>735</IntrospectionStateNumber>
+      <IntrospectionStateNumber>737</IntrospectionStateNumber>
       <Current>1</Current>
       <Relations>sequence|table|16384|16386|1
 sequence|table|16395|16397|1
@@ -1476,7 +1476,7 @@ sequence|table|24787|24789|17
       <Comment>standard public schema</Comment>
       <StateNumber>275</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>736</IntrospectionStateNumber>
+      <IntrospectionStateNumber>738</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <access-method id="15" parent="2" name="heap">
