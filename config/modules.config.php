@@ -47,4 +47,5 @@ return array(
     'ZF\\Apigility\\Documentation\\Swagger',
     'Projeto',
     'Pessoa',
+    'Transacao',
 );
