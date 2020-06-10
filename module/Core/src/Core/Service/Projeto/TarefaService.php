@@ -1,4 +1,5 @@
-<?php 
+
+<?php
  
 namespace Core\Service\Projeto;
 

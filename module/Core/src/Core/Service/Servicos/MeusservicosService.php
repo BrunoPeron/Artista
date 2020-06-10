@@ -11,21 +11,30 @@ class MeusservicosService{
         $this->em = $em;
     }
 
-    public function create($data, $usr, $projeto = null){
-        if(!$projeto){
+    public function create($data, $usr, $meusservicos = null){
+        if(!$meusservicos){
             $meusservicos = new meusservicos();
+            $data = date('d/m/Y');
+            $meusservicos->dataInicio = \DateTime::createFromFormat("d/m/Y",$data);
+//            $dono = $this->em->getRepository(\Core\Entity\Projeto\Usuario::class)->findOneBy(['id' => $usr['client_id']]);
+//            var_dump($dono);exit;
+            $meusservicos->cliente = $data['cliente'];
+            $meusservicos->artista = $data['artista'];
         }
-        $meusservicos->nome = $data['nome'];
-//        $data_fim = \Date::createFromFormat("Y-m-d", $data['data_fim']);
-//        $meusservicos->dataInicio = $data['data_inicial'];
-//        $meusservicos->dataFim = date("Y/m/d", $data['data_fim']);
-        $meusservicos->cliente = $data['cliente'];
-        $meusservicos->artista = $data['artista'];
-        $meusservicos->descricao = $data['descricao'];
+
+        if(!$meusservicos->nome){
+            $meusservicos->nome = $data['nome'];
+        }
+        if(!$meusservicos->descricao){
+            $meusservicos->descricao = $data['descricao'];
+        }
         $meusservicos->status = $data['status'];
-        $data = date('d/m/Y');
-        $meusservicos->dataInicio = \DateTime::createFromFormat("d/m/Y",$data);
-    
+
+        if($meusservicos->status=4){
+            $data = date('d/m/Y');
+            $meusservicos->dataFim = \DateTime::createFromFormat("d/m/Y",$data);
+        }
+
         try{
     		$this->em->persist($meusservicos);
     		$this->em->flush();
@@ -48,6 +57,28 @@ class MeusservicosService{
         }
         $result = $qb->getQuery()->getResult();
         return $result;
+    }
+
+    public  function update($id, $data, $usr){
+        $meuservicos = $this->em->getRepository(\Core\Entity\Servicos\meusservicos::class)->findOneBy(['id' => $id]);
+        if($meuservicos){
+            return $this->create($data, $usr, $meuservicos);
+        }
+    }
+
+    public function delete($id){
+        $sql = "delete from meusservicos where id = {$id} returning id";
+        $stmt = $this->em->getConnection()->prepare($sql);
+        try {
+            $stmt->execute();
+            $retorno = $stmt->fetchAll();
+            if(!isset($retorno[0])){
+                return ['codigo' => 404, 'mensagem' => 'Não foi possível excluir a tarefa, verique se você é o Dono!'];
+            }
+        } catch (\Exception $e){
+            return ['codigo' => 500, 'mensagem' => 'Não foi possível excluir a tarefa!'];
+        }
+        return ['codigo' => 200, 'mensagem' => 'Excluído com sucesso!'];
     }
 
 }

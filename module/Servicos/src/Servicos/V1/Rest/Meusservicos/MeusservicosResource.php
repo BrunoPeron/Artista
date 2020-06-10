@@ -41,7 +41,9 @@ class MeusservicosResource extends AbstractResourceListener
      */
     public function delete($id)
     {
-        return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
+        $meusservicos = new meusservicos($this->em);
+        $retorno = $meusservicos->delete($id);
+        return new ApiProblem($retorno['codigo'], $retorno['mensagem']);
     }
 
     /**
@@ -63,7 +65,8 @@ class MeusservicosResource extends AbstractResourceListener
      */
     public function fetch($id)
     {
-        return new ApiProblem(405, 'The GET method has not been defined for individual resources');
+        $meusservicos = new meusservicos($this->em);
+        return $meusservicos->fetch(ltrim($id, '='));
     }
 
     /**
@@ -121,6 +124,9 @@ class MeusservicosResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
-        return new ApiProblem(405, 'The PUT method has not been defined for individual resources');
+        $usr = $this->getEvent()->getIdentity()->getAuthenticationIdentity();
+        $data = $this->getInputFilter()->getValues();
+        $meusservicos = new meusservicos($this->em);
+        $meusservicos->update($id, $data, $usr);
     }
 }
