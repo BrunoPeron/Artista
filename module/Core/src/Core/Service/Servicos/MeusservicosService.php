@@ -16,8 +16,6 @@ class MeusservicosService{
             $meusservicos = new meusservicos();
             $data = date('d/m/Y');
             $meusservicos->dataInicio = \DateTime::createFromFormat("d/m/Y",$data);
-//            $dono = $this->em->getRepository(\Core\Entity\Projeto\Usuario::class)->findOneBy(['id' => $usr['client_id']]);
-//            var_dump($dono);exit;
             $meusservicos->cliente = $data['cliente'];
             $meusservicos->artista = $data['artista'];
         }
