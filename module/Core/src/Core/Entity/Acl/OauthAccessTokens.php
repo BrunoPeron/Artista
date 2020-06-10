@@ -15,8 +15,8 @@ class OauthAccessTokens {
      *
      * @var string
      * @ORM\Column(name="access_token", type="string", nullable=false)
-     * @ORM\Id
-//     * @ORM\GeneratedValue
+     * @ORM\Id 
+     * @ORM\GeneratedValue
      */
     public $access_token;
 

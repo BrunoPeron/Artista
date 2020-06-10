@@ -40,7 +40,8 @@ return array(
     'User',
     34 => 'Core',
     38 => 'Sistema',
-    40 => 'ZF\\HttpCache',
+    'Usuarios',
+    'ZF\\HttpCache',
     'ZendDeveloperTools',
     'ZF\\Apigility\\Admin',
     'DoctrineDataFixtureModule',
@@ -48,4 +49,5 @@ return array(
     'Projeto',
     'Pessoa',
     'Transacao',
+    'Servicos',
 );

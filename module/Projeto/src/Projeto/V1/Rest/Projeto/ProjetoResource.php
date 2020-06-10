@@ -22,7 +22,7 @@ class ProjetoResource extends AbstractResourceListener
      * @param  mixed $data
      * @return ApiProblem|mixed
      */
-    public function create($data){
+    public function create($data){ 
     	$data = $this->getInputFilter()->getValues();
         $usr = $this->getEvent()->getIdentity()->getAuthenticationIdentity();
         $projeto = new Projeto($this->em);
